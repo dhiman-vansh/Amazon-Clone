@@ -17,8 +17,9 @@ const Product = () => {
   useEffect(function() {
     async function fetchSingleProduct() {
       try {
-        const res = await axios.get('https://amazonclone-sp.herokuapp.com/api/product/' + id);
+        const res = await axios.get('http://localhost:8000/api/product/' + id);
         setProduct(res.data);
+        console.log("data is ", res.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -33,7 +34,7 @@ const Product = () => {
   // Add to cart
   async function addToCart(id) {
     try {
-      const res = await axios.post('https://amazonclone-sp.herokuapp.com/api/addtocart/' + id, {
+      const res = await axios.post('http://localhost:8000/api/addtocart/' + id, {
         product
       }, {
         headers: {
@@ -52,7 +53,7 @@ const Product = () => {
   const [userData, setUserData] = useState();
   async function fetchUser() {
     try {
-      const res = await axios.get('https://amazonclone-sp.herokuapp.com/api/getAuthUser', {withCredentials: true});
+      const res = await axios.get('http://localhost:8000/api/getAuthUser', {withCredentials: true});
       if (res) {
         setUserData(res.data);
       }
@@ -88,14 +89,14 @@ const Product = () => {
             img: product.url
           }
 
-          const res = await axios.post("https://amazonclone-sp.herokuapp.com/api/create-order", {
+          const res = await axios.post("http://localhost:8000/api/create-order", {
             amount: orderAmount + '00'
           }, {
             withCredentials: true
           })
           
           const { id, amount, currency } = res.data.order;
-          const { key } = await axios.get("https://amazonclone-sp.herokuapp.com/api/get-razorpay-key");
+          const { key } = await axios.get("http://localhost:8000/api/get-razorpay-key");
 
           var today = new Date();
           var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
@@ -107,7 +108,7 @@ const Product = () => {
             order_id: id,
             name: product.name,
             handler: async function(response) {
-              const result = await axios.post("https://amazonclone-sp.herokuapp.com/api/pay-order", {
+              const result = await axios.post("http://localhost:8000/api/pay-order", {
                 orderedProducts: orderedProducts,
                 dateOrdered: date,
                 amount: amount,
@@ -181,11 +182,11 @@ const Product = () => {
           <div className='about-product'>
             <h6>About this item</h6>
             <ul>
-              { product.points.map(function(point, index) {
+              {/* { product.points.map(function(point, index) {
                 return (
                   <li key={index}>{point}</li>
                 )
-              }) }
+              }) } */}
             </ul>
           </div>
         </div>

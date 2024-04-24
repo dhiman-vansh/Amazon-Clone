@@ -22,11 +22,12 @@ const Slider = (props) => {
   useEffect(function() {
     async function fetchProducts() {
       try {
-        const res = await axios.get('https://amazonclone-sp.herokuapp.com/api/products');
+        const res = await axios.get('http://localhost:8000/api/products');
         setProducts(res.data);
+        // console.log(" data is ", res.data)
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        console.log(error + " IN SLIDER ERROR");
       }
     }
 

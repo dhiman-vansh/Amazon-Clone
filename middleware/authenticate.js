@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const secretKey = process.env.SECRET_KEY;
+const secretKey = "secret123";
 
 const authenticate = async function(req, res, next) {
   try {
     const token = await req.cookies.AmazonClone;
     // console.log(token);
-    const verifyToken = await jwt.verify(token, secretKey);
+    const verifyToken = await jwt.verify(token, 'secret123');
     // console.log(verifyToken);
 
     const rootUser = await User.findOne({ _id: verifyToken._id });

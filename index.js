@@ -9,7 +9,7 @@ const port = process.env.PORT || 8000;
 var path = require('path');
 
 const app = express();
-
+// app.use
 // Database connection
 require('./database/connection');
 
@@ -27,12 +27,12 @@ app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use('/api', router);
 
 // For deployment
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname,  "client/build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static('client/build'));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname,  "client/build", "index.html"));
+//   });
+// }
 
 // Server
 app.listen(port, function() {

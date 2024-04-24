@@ -1,6 +1,6 @@
 // Libraries
 const mongoose = require('mongoose');
-const db_url = process.env.DB_URL;
+const db_url = "mongodb+srv://Vansh:Vansh@freelancing.ioxxoqc.mongodb.net/?retryWrites=true&w=majority&appName=FreeLancing";
 
 // Database Connection
 mongoose.connect(db_url, function(error) {

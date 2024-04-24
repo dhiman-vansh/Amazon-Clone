@@ -12,11 +12,28 @@ router.get("/products", async function(req, res) {
   try {
     // Fetching data from database
     const productsData = await Product.find();
+    console.log(productsData + "  i am hit")
     res.status(200).json(productsData);
   } catch (error) {
     console.log(error);
   }
 })
+router.post("/products", async (req, res) => {
+  try {
+    // Create a new product instance based on the request body
+    const newProduct = new Product(req.body);
+    
+    // Save the new product to the database
+    const savedProduct = await newProduct.save();
+    
+    // Send the saved product as a response
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    // If an error occurs, send an error response
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // Get individual data
 router.get("/product/:id", async function(req, res) {
